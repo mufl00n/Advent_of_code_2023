@@ -41,22 +41,23 @@ def translate_number_to_string_first():
 
 
 def find_first():
+    print('Finding first')
     for line in lines:
         first = []
         for key, value in numbers_dir.items():
             match = re.search(value, line)
             if match:
                 first.append((match.start(), value))
-                first.sort()
-                print(first)
-        if first[0][1]:
-            found_first.append(first[0][1])
-        else:
-            found_first.append(first[0][0])
+        first.sort()
+        print(first[0][1])
+        found_first.append(first[0][1])
 
 
-find_first()
-translate_number_to_string_first()
+    translate_number_to_string_first()
+    find_last()
+
+
+
 
 
 ####################################### FIND LAST NUMBER ######################################
@@ -68,14 +69,18 @@ def translate_number_to_string_last():
 
 
 def find_last():
+    print('Finding last')
     for line in lines:
         last = []
         for key, value in numbers_dir.items():
             match = re.search(value, line)
             if match:
                 last.append((match.start(), value))
-                last.sort()
-        found_last.append(last[-1][1])
+        last.sort()
+        last.sort(reverse=True)
+        found_last.append(last[0][1])
+
+    translate_number_to_string_last()
 
 
 def zipping():
@@ -86,8 +91,10 @@ def zipping():
 
 
 
-find_last()
-translate_number_to_string_last()
+find_first()
+
+print(f'first_number: {first_number}')
+print(f'last_number: {last_number}')
 zipping()
 print(sum(total))
 
