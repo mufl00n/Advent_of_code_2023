@@ -1,44 +1,24 @@
-import re
-
-found_first = []
-found_last = []
-
-numbers_dir = {
-    1: 'one',
-    2: 'two',
-    3: 'three',
-    4: 'four',
-    5: 'five',
-    6: 'six',
-    7: 'seven',
-    8: 'eight',
-    9: 'nine'
-}
 numbers = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten']
+total = []
 
-with open('test3.txt') as f:
+with open("sharp.txt") as f:
     lines = f.readlines()
 
-def find_last():
+
+def find_numbers_and_words():
     for line in lines:
-        last = []
-        number = re.search(r'\d',line[::-1])
-        found_last.append(int(number.group()))
+        digits = []
+        for a, b in enumerate(line):
+            if b.isdigit():
+                digits.append(b)
+            else:
+                for aa, bb in enumerate(numbers):
+                    if line[a:].startswith(bb):
+                        digits.append(str(aa + 1))
+        total.append(digits[0] + digits[-1])
 
 
+find_numbers_and_words()
 
-def find_first():
-    for line in lines:
-        first = []
-        number = re.search(r'\d',line)
-        found_first.append(int(number.group()))
-    find_last()
-
-find_first()
-
-
-
-# found_first = list(map(int, found_first))
-# found_last = list(map(int, found_last))
-print(f'found first: {found_first}')
-print(f'found last: {found_last}')
+total = list(map(int, total))
+print(f'Coordinates are: {sum(total)}')
